@@ -1,6 +1,6 @@
 package machine
 
-fun printState(water: Int, milk: Int, beans: Int, cups: Int, money: Int) {
+fun printStatus(water: Int, milk: Int, beans: Int, cups: Int, money: Int) {
     println("The coffee machine has:")
     println("$water of water")
     println("$milk of milk")
@@ -53,6 +53,78 @@ fun configureMachine() {
     }
 }
 
+
 fun main() {
-    configureMachine()
+    var water = 400
+    var milk = 540
+    var beans = 120
+    var cups = 9
+    var money = 550
+
+    printStatus(water, milk, beans, cups, money)
+    //write action (buy, fill, take):
+    println("Write action (buy, fill, take):")
+    val action = readln()
+    when (action) {
+        "buy" -> {
+            println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
+            val coffeeType = readln()
+            when (coffeeType) {
+                "1" -> {
+                    if (water >= 250 && beans >= 16 && cups >= 1) {
+                        water -= 250
+                        beans -= 16
+                        cups -= 1
+                        money += 4
+                        printProcess()
+                    } else {
+                        println("Sorry, not enough water!")
+                    }
+                }
+
+                "2" -> {
+                    if (water >= 350 && milk >= 75 && beans >= 20 && cups >= 1) {
+                        water -= 350
+                        milk -= 75
+                        beans -= 20
+                        cups -= 1
+                        money += 7
+                        printProcess()
+                    } else {
+                        println("Sorry, not enough water!")
+                    }
+                }
+
+                "3" -> {
+                    if (water >= 200 && milk >= 100 && beans >= 12 && cups >= 1) {
+                        water -= 200
+                        milk -= 100
+                        beans -= 12
+                        cups -= 1
+                        money += 6
+                        printProcess()
+                    } else {
+                        println("Sorry, not enough water!")
+                    }
+                }
+            }
+        }
+
+        "fill" -> {
+            println("Write how many ml of water do you want to add:")
+            water += readln().toInt()
+            println("Write how many ml of milk do you want to add:")
+            milk += readln().toInt()
+            println("Write how many grams of coffee beans do you want to add:")
+            beans += readln().toInt()
+            println("Write how many disposable cups of coffee do you want to add:")
+            cups += readln().toInt()
+        }
+
+        "take" -> {
+            println("I gave you $$money")
+            money = 0
+        }
+    }
+    printStatus(water, milk, beans, cups, money)
 }
