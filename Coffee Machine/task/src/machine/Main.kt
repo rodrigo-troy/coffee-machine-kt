@@ -16,7 +16,7 @@ fun printIngredientsNeeded(water: Int, milk: Int, beans: Int, cups: Int) {
     println("${beans * cups} g of coffee beans")
 }
 
-fun printprocess() {
+fun printProcess() {
     println(
         "Starting to make a coffee\n" +
                 "Grinding coffee beans\n" +
@@ -28,9 +28,31 @@ fun printprocess() {
     )
 }
 
-fun main() {
+fun configureMachine() {
+    println("Write how many ml of water the coffee machine has:")
+    val water = readln().toInt()
+    println("Write how many ml of milk the coffee machine has:")
+    val milk = readln().toInt()
+    println("Write how many grams of coffee beans the coffee machine has:")
+    val beans = readln().toInt()
     println("Write how many cups of coffee you will need:")
     val cups = readln().toInt()
 
-    printIngredientsNeeded(200, 50, 15, cups)
+    val waterCups = water / 200
+    val milkCups = milk / 50
+    val beansCups = beans / 15
+
+    val minCups = minOf(waterCups, milkCups, beansCups)
+
+    if (minCups == cups) {
+        println("Yes, I can make that amount of coffee")
+    } else if (minCups > cups) {
+        println("Yes, I can make that amount of coffee (and even ${minCups - cups} more than that)")
+    } else {
+        println("No, I can make only $minCups cup(s) of coffee")
+    }
+}
+
+fun main() {
+    configureMachine()
 }
