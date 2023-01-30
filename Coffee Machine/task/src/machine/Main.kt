@@ -6,7 +6,7 @@ fun printStatus(water: Int, milk: Int, beans: Int, cups: Int, money: Int) {
     println("$milk of milk")
     println("$beans of coffee beans")
     println("$cups of disposable cups")
-    println("$money of money")
+    println("\$$money of money")
 }
 
 fun printIngredientsNeeded(water: Int, milk: Int, beans: Int, cups: Int) {
@@ -61,70 +61,77 @@ fun main() {
     var cups = 9
     var money = 550
 
-    printStatus(water, milk, beans, cups, money)
-    //write action (buy, fill, take):
-    println("Write action (buy, fill, take):")
-    val action = readln()
-    when (action) {
-        "buy" -> {
-            println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
-            val coffeeType = readln()
-            when (coffeeType) {
-                "1" -> {
-                    if (water >= 250 && beans >= 16 && cups >= 1) {
-                        water -= 250
-                        beans -= 16
-                        cups -= 1
-                        money += 4
-                        printProcess()
-                    } else {
-                        println("Sorry, not enough water!")
+    println("Write action (buy, fill, take, remaining, exit):")
+    var action = readln()
+    while (action != "exit") {
+        println()
+        when (action) {
+            "buy" -> {
+                println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
+                val coffeeType = readln()
+                when (coffeeType) {
+                    "1" -> {
+                        if (water >= 250 && beans >= 16 && cups >= 1) {
+                            water -= 250
+                            beans -= 16
+                            cups -= 1
+                            money += 4
+                            printProcess()
+                        } else {
+                            println("Sorry, not enough water!")
+                        }
                     }
-                }
 
-                "2" -> {
-                    if (water >= 350 && milk >= 75 && beans >= 20 && cups >= 1) {
-                        water -= 350
-                        milk -= 75
-                        beans -= 20
-                        cups -= 1
-                        money += 7
-                        printProcess()
-                    } else {
-                        println("Sorry, not enough water!")
+                    "2" -> {
+                        if (water >= 350 && milk >= 75 && beans >= 20 && cups >= 1) {
+                            water -= 350
+                            milk -= 75
+                            beans -= 20
+                            cups -= 1
+                            money += 7
+                            printProcess()
+                        } else {
+                            println("Sorry, not enough water!")
+                        }
                     }
-                }
 
-                "3" -> {
-                    if (water >= 200 && milk >= 100 && beans >= 12 && cups >= 1) {
-                        water -= 200
-                        milk -= 100
-                        beans -= 12
-                        cups -= 1
-                        money += 6
-                        printProcess()
-                    } else {
-                        println("Sorry, not enough water!")
+                    "3" -> {
+                        if (water >= 200 && milk >= 100 && beans >= 12 && cups >= 1) {
+                            water -= 200
+                            milk -= 100
+                            beans -= 12
+                            cups -= 1
+                            money += 6
+                            printProcess()
+                        } else {
+                            println("Sorry, not enough water!")
+                        }
                     }
                 }
             }
-        }
 
-        "fill" -> {
-            println("Write how many ml of water do you want to add:")
-            water += readln().toInt()
-            println("Write how many ml of milk do you want to add:")
-            milk += readln().toInt()
-            println("Write how many grams of coffee beans do you want to add:")
-            beans += readln().toInt()
-            println("Write how many disposable cups of coffee do you want to add:")
-            cups += readln().toInt()
-        }
+            "fill" -> {
+                println("Write how many ml of water do you want to add:")
+                water += readln().toInt()
+                println("Write how many ml of milk do you want to add:")
+                milk += readln().toInt()
+                println("Write how many grams of coffee beans do you want to add:")
+                beans += readln().toInt()
+                println("Write how many disposable cups of coffee do you want to add:")
+                cups += readln().toInt()
+            }
 
-        "take" -> {
-            println("I gave you $$money")
-            money = 0
+            "take" -> {
+                println("I gave you $$money")
+                money = 0
+            }
+
+            "remaining" -> {
+                printStatus(water, milk, beans, cups, money)
+            }
         }
+        println("Write action (buy, fill, take, remaining, exit):")
+        action = readln()
     }
-    printStatus(water, milk, beans, cups, money)
+
 }
