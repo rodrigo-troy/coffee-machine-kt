@@ -16,8 +16,8 @@ fun main() {
 
         when (action) {
             "buy" -> {
-                println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
-                coffeeMachine.setInput(action)
+                println("\nWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
+                coffeeMachine.setInput(readln())
             }
 
             "fill" -> {
@@ -31,9 +31,7 @@ fun main() {
                 coffeeMachine.setInput(readln())
             }
 
-            else -> {
-                coffeeMachine.setInput(readln())
-            }
+            else -> continue
         }
     }
 }

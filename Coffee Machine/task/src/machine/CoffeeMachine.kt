@@ -62,8 +62,13 @@ class CoffeeMachine(var water: Int = 400,
             }
 
             State.CHOOSING_COFFEE -> {
-                makeCoffee(input)
-                currentState = State.CHOOSE_ACTION
+                currentState = when (input) {
+                    "back" -> State.CHOOSE_ACTION
+                    else -> {
+                        makeCoffee(input)
+                        State.CHOOSE_ACTION
+                    }
+                }
             }
 
             State.FILLING_WATER -> {
