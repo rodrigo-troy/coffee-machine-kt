@@ -14,7 +14,6 @@ class TestClue {
     int cups;
     int money;
     String feedback;
-
     TestClue(int w,
              int m,
              int b,
