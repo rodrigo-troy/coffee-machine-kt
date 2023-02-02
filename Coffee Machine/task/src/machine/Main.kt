@@ -8,7 +8,7 @@ fun main() {
                                       9,
                                       550)
 
-    while (coffeeMachine.currentState != State.EXIT) {
+    while (coffeeMachine.status() != State.EXIT) {
         println("Write action (buy, fill, take, remaining, exit):")
         var action = readln()
 

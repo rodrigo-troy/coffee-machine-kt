@@ -26,6 +26,15 @@ enum class CoffeeType(val id: String,
                200,
                100,
                12,
-               6)
+               6),
+    UNDEFINED("0",
+              0,
+              0,
+              0,
+              0);
 
+
+    companion object {
+        fun fromId(id: String): CoffeeType = values().firstOrNull { it.id == id } ?: UNDEFINED
+    }
 }

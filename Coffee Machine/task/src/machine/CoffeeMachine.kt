@@ -12,9 +12,13 @@ class CoffeeMachine(var water: Int = 400,
                     var beans: Int = 120,
                     var cups: Int = 9,
                     var money: Int = 550) {
-    var currentState = State.CHOOSE_ACTION
+    private var currentState: State = State.CHOOSE_ACTION
 
-    fun remaining() {
+    fun status(): State {
+        return currentState
+    }
+
+    private fun remaining() {
         println()
         println("The coffee machine has:")
         println("$water of water")
@@ -22,16 +26,18 @@ class CoffeeMachine(var water: Int = 400,
         println("$beans of coffee beans")
         println("$cups of disposable cups")
         println("\$$money of money")
+        println()
+        currentState = State.CHOOSE_ACTION
     }
 
-    fun take() {
+    private fun take() {
         println()
         println("I gave you \$$money")
         money = 0
     }
 
-    fun fill(state: State,
-             value: Int) {
+    private fun fill(state: State,
+                     value: Int) {
         when (state) {
             State.FILLING_WATER -> water += value
             State.FILLING_MILK -> milk += value
@@ -51,6 +57,7 @@ class CoffeeMachine(var water: Int = 400,
                     "take" -> take()
                     "remaining" -> remaining()
                     "exit" -> currentState = State.EXIT
+                    else -> return
                 }
             }
 
@@ -114,14 +121,15 @@ class CoffeeMachine(var water: Int = 400,
     }
 
     private fun makeCoffee(input: String) {
-        if (checkResources(CoffeeType.valueOf(input))) {
-            water -= CoffeeType.valueOf(input).water
-            milk -= CoffeeType.valueOf(input).milk
-            beans -= CoffeeType.valueOf(input).beans
-            money += CoffeeType.valueOf(input).price
+        val coffeeType = CoffeeType.fromId(input)
+
+        if (checkResources(coffeeType)) {
+            water -= coffeeType.water
+            milk -= coffeeType.milk
+            beans -= coffeeType.beans
+            money += coffeeType.price
             cups -= 1
             println("I have enough resources, making you a coffee!")
         }
     }
-
 }
